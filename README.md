@@ -3,6 +3,33 @@
 
 ![](https://github.com/IBCHgenomic/eVaiutilities/blob/main/logo.png)
 
+```
+cargo build
+```
+
+```
+demultiplexing and repgenerate for human genomics.
+       ************************************************
+      Gaurav Sablok, IBCH, PAN, Poznan, Poland,
+      https://portal.ichb.pl/laboratory-of-genomics/.
+      Email: gsablok@ibch.poznan.pl
+      Prof. Luiza Handschuh
+      Email: luizahan@ibch.poznan.pl.
+      ************************************************
+
+Usage: repgenerate <COMMAND>
+
+Commands:
+  demultiplex  demultiplex the illumina sequencing
+  dereport     demultiplex and report generate
+  report       report claibration
+  help         Print this message or the help of the given subcommand(s)
+
+Options:
+  -h, --help     Print help
+  -V, --version  Print version
+```
+
 - To install windows version:
 ```
 rustup component add llvm-tools
