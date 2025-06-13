@@ -1,5 +1,6 @@
 mod args;
 mod demultiplex;
+mod demultiplexstruct;
 mod dereport;
 mod dereportcall;
 use crate::args::CommandParse;
