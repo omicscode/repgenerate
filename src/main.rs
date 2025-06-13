@@ -9,6 +9,7 @@ use crate::dereport::dereportcallreads;
 use crate::dereportcall::dereportcallfunction;
 use async_std::task;
 use clap::Parser;
+use figlet_rs::FIGfont;
 
 /*
  Authom GauravSablok
@@ -19,6 +20,9 @@ use clap::Parser;
 */
 
 fn main() {
+    let fontgenerate = FIGfont::standard().unwrap();
+    let repgenerate = fontgenerate.convert("REPGENERATE");
+    println!("{}", repgenerate.unwrap());
     let argsparse = CommandParse::parse();
     match &argsparse.command {
         Commands::DEMULTIPLEX {
@@ -36,7 +40,7 @@ fn main() {
             println!("The command has been finished:{}", command);
         }
         Commands::REPORT { report } => {
-            let command = dereportcallfunction(report).unwrap();
+            let command = task::block_on(dereportcallfunction(report)).unwrap();
             println!("The report have been generated:{}", command);
         }
     }
