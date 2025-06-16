@@ -48,6 +48,23 @@ cd ensemblcov
 cargo xwin build --target x86_64-pc-windows-msvc
 ```
 
+- to run the simple report generator where you have a folder of any number of the fastp reports and for each sample, it will prepare a single file with what is needed. With demultiplex options, it will prepare the same report. 
+
+```
+./target/debug/repgenerate report sample-file
+```
+
+```
+duplication-rate:"0.083112"
+insert size peak        insert size unknown     adapter trimmed reads   adapter trimmed bases   170     5455420 24376812        893347838
+before filtering
+before filtering        total_reads     total_bases     q20_bases       q30_bases       q20_rate        q30_rate        read1_mean_length       read2_mean_length       gc_content
+105961318       16000159018     15672173600     15065791642     0.979501        0.941603        151     151     0.449647
+after filtering
+total_reads     total_bases     q20_bases       q30_bases       q20_rate        q30_rate        read1_mean_length       read2_mean_length       gc_content
+104626372       14908378954     14761963198     14354265840     0.990179        0.962832        142     142     0.440785
+```
+
 
  - Acknowledgements: MOSAIC platform, developed as part of the ECBiG-MOSAIC project (POIR.04.02.00-00-D017/20), co-financed by the European Regional Development Fund (ERDF) under the Smart Growth Operational Programme 2014-2020, Measure 4.2 for the development of modern research infrastructure in the science sector. 
  - Informal queries: Prof. Luiza Handschuh: luizahan@ibch.poznan.pl.

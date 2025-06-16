@@ -8,7 +8,6 @@ use crate::args::Commands;
 use crate::demultiplex::demultiplexreads;
 use crate::dereport::dereportcallreads;
 use crate::dereportcall::dereportcallfunction;
-use async_std::task;
 use clap::Parser;
 use figlet_rs::FIGfont;
 
@@ -41,7 +40,7 @@ fn main() {
             println!("The command has been finished:{}", command);
         }
         Commands::REPORT { report } => {
-            let command = task::block_on(dereportcallfunction(report)).unwrap();
+            let command = dereportcallfunction(report).unwrap();
             println!("The report have been generated:{}", command);
         }
     }
