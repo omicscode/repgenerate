@@ -8,7 +8,7 @@ pub struct StoreReadsBefore {
     pub q20rate: String,
     pub q30rate: String,
     pub read1meanlength: String,
-    pub read2menalength: String,
+    pub read2meanlength: String,
     pub gccontent: String,
 }
 
@@ -22,7 +22,7 @@ pub struct StoreReadsAfter {
     pub q20rate: String,
     pub q30rate: String,
     pub read1meanlength: String,
-    pub read2menalength: String,
+    pub read2meanlength: String,
     pub gccontent: String,
 }
 

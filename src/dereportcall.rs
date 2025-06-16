@@ -1,9 +1,8 @@
 use crate::demultiplexstruct::{FilteringResults, StoreReadsAfter, StoreReadsBefore};
-use serde::*;
-use serde_json::{Deserializer, Serializer};
 use std::error::Error;
 use std::fs;
 use std::fs::File;
+use std::io::Write;
 use std::path::Path;
 
 /*
@@ -27,71 +26,180 @@ pub async fn dereportcallfunction(pathdir: &str) -> Result<String, Box<dyn Error
         let mut filterresults: Vec<FilteringResults> = Vec::new();
         let mut afterstorereadsvector: Vec<StoreReadsAfter> = Vec::new();
         let mut beforestorereadsvector: Vec<StoreReadsBefore> = Vec::new();
-        let mut duplication: Vec<String> = Vec::new();
+        let mut duplicationiter: Vec<String> = Vec::new();
         let mut insertsize: Vec<(String, String)> = Vec::new();
         let mut adaptercut: Vec<(String, String)> = Vec::new();
         if fileview.is_object() {
-            for (fileviewkey, filekeyvalue) in fileview.as_object().unwrap() {
+            for (fileviewkey, _filekeyvalue) in fileview.as_object().unwrap() {
                 if fileviewkey == "filtering_result" {
                     filterresults.push(FilteringResults {
-                        filename: filen,
-                        passed_filter_reads: fileviewkey["passed_filter_reads"].to_string(),
-                        low_quality_reads: fileviewkey["low_quality_reads"].to_string(),
-                        too_many_n_reads: fileviewkey["too_many_N_reads"].to_string(),
-                        too_short_reads: fileviewkey["too_short_reads"].to_string(),
-                        too_long_reads: fileviewkey["too_long_reads"].to_string(),
+                        filename: filen.clone(),
+                        passed_filter_reads: fileview["filtering_result"]["passed_filter_reads"]
+                            .to_string(),
+                        low_quality_reads: fileview["filtering_result"]["low_quality_reads"]
+                            .to_string(),
+                        too_many_n_reads: fileview["filtering_result"]["too_many_N_reads"]
+                            .to_string(),
+                        too_short_reads: fileview["filtering_result"]["too_short_reads"]
+                            .to_string(),
+                        too_long_reads: fileview["filtering_result"]["too_long_reads"].to_string(),
                     });
                 }
                 if fileviewkey == "duplication" {
-                    duplication.push(fileviewkey["rate"]);
+                    duplicationiter.push(fileview["duplication"]["rate"].to_string());
                 }
                 if fileviewkey == "insertsize" {
-                    let value: (String, String) = (fileviewkey["peak"], fileviewkey["unknown"]);
+                    let value: (String, String) = (
+                        fileview["insertsize"]["peak"].to_string(),
+                        fileview["insertsize"]["unknown"].to_string(),
+                    );
                     insertsize.push(value);
                 }
                 if fileviewkey == "adapter_cutting" {
                     let adapter: (String, String) = (
-                        fileviewkey["adapter_trimmed_reads"],
-                        fileviewkey["adapter_trimmed_bases"],
+                        fileview["adapter_cutting"]["adapter_trimmed_reads"].to_string(),
+                        fileview["adapter_cutting"]["adapter_trimmed_bases"].to_string(),
                     );
                     adaptercut.push(adapter);
                 }
                 if fileview == "summary" {
-                    let newobject = fileview["summary"];
-                    if fileview.is_object() {
-                        for (keystring, keyvalue) in newobject.as_object().unwrap() {
+                    let newobject = fileview["summary"].clone();
+                    if newobject.is_object() {
+                        for (keystring, _keyvalue) in newobject.as_object().unwrap() {
                             if keystring == "before_filtering" {
                                 beforestorereadsvector.push(StoreReadsBefore {
-                                    filename: keystring["total_reads"],
-                                    totalreads: keystring["total_reads"],
-                                    totalbases: keystring["total_bases"],
-                                    q20bases: keystring["q20_bases"],
-                                    q30bases: keystring["q30_bases"],
-                                    q20rate: keystring["q20_rate"],
-                                    q30rate: keystring["q30_rate"],
-                                    read1meanlength: keystring["read1_mean_length"],
-                                    read2menalength: keystring["read2_mean_length"],
-                                    gccontent: keystring["gc_content"],
+                                    filename:
+                                        fileview["summary"]["before_fitlering"]["total_reads"]
+                                            .to_string(),
+                                    totalreads:
+                                        fileview["summary"]["before_fitlering"]["total_reads"]
+                                            .to_string(),
+                                    totalbases:
+                                        fileview["summary"]["before_fitlering"]["total_bases"]
+                                            .to_string(),
+                                    q20bases: fileview["summary"]["before_fitlering"]["q20_bases"]
+                                        .to_string(),
+                                    q30bases: fileview["summary"]["before_fitlering"]["q30_bases"]
+                                        .to_string(),
+                                    q20rate: fileview["summary"]["before_fitlering"]["q20_rate"]
+                                        .to_string(),
+                                    q30rate: fileview["summary"]["before_fitlering"]["q30_rate"]
+                                        .to_string(),
+                                    read1meanlength:
+                                        fileview["summary"]["before_fitlering"]["read1_mean_length"]
+                                            .to_string(),
+                                    read2meanlength:
+                                        fileview["summary"]["before_fitlering"]["read2_mean_length"]
+                                            .to_string(),
+                                    gccontent:
+                                        fileview["summary"]["before_fitlering"]["gc_content"]
+                                            .to_string(),
                                 })
                             }
                             if keystring == "after_filtering" {
-                                afterstorereadsvector.push(StoreReadsBefore {
-                                    filename: keystring["total_reads"],
-                                    totalreads: keystring["total_reads"],
-                                    totalbases: keystring["total_bases"],
-                                    q20bases: keystring["q20_bases"],
-                                    q30bases: keystring["q30_bases"],
-                                    q20rate: keystring["q20_rate"],
-                                    q30rate: keystring["q30_rate"],
-                                    read1meanlength: keystring["read1_mean_length"],
-                                    read2menalength: keystring["read2_mean_length"],
-                                    gccontent: keystring["gc_content"],
+                                afterstorereadsvector.push(StoreReadsAfter {
+                                    filename: fileview["summary"]["after_fitlering"]["total_reads"]
+                                        .to_string(),
+                                    totalreads:
+                                        fileview["summary"]["after_fitlering"]["total_reads"]
+                                            .to_string(),
+                                    totalbases:
+                                        fileview["summary"]["after_fitlering"]["total_bases"]
+                                            .to_string(),
+                                    q20bases: fileview["summary"]["after_fitlering"]["q20_bases"]
+                                        .to_string(),
+                                    q30bases: fileview["summary"]["after_fitlering"]["q30_bases"]
+                                        .to_string(),
+                                    q20rate: fileview["summary"]["after_fitlering"]["q20_rate"]
+                                        .to_string(),
+                                    q30rate: fileview["summary"]["after_fitlering"]["q30_rate"]
+                                        .to_string(),
+                                    read1meanlength:
+                                        fileview["summary"]["after_fitlering"]["read1_mean_length"]
+                                            .to_string(),
+                                    read2meanlength:
+                                        fileview["summary"]["after_fitlering"]["read2_mean_length"]
+                                            .to_string(),
+                                    gccontent: fileview["summary"]["after_fitlering"]["gc_content"]
+                                        .to_string(),
                                 });
                             }
                         }
                     }
                 }
             }
+        }
+        let mut filewrite = File::create(filen.clone()).expect("filename not found");
+        writeln!(filewrite, "{:?}", duplicationiter[0].to_string()).expect("file not present");
+        for i in 0..insertsize.len() {
+            writeln!(
+                filewrite,
+                "{}\t{}\t{}\t{}",
+                insertsize[i].0, insertsize[i].1, adaptercut[i].0, adaptercut[i].1
+            )
+            .expect("file not present");
+        }
+        writeln!(filewrite, "{}", "before filtering").expect("file not present");
+        writeln!(
+            filewrite,
+            "{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}",
+            "total_reads",
+            "total_bases",
+            "q20_bases",
+            "q30_bases",
+            "q20_rate",
+            "q30_rate",
+            "read1_mean_length",
+            "read2_mean_length",
+            "gc_content"
+        )
+        .expect("file not present");
+        for i in beforestorereadsvector.iter() {
+            writeln!(
+                filewrite,
+                "{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}",
+                i.totalreads,
+                i.totalbases,
+                i.q20bases,
+                i.q30bases,
+                i.q20rate,
+                i.q30rate,
+                i.read1meanlength,
+                i.read2meanlength,
+                i.gccontent
+            )
+            .expect("file not present");
+        }
+        writeln!(filewrite, "{}", "afterfiltering").expect("file not present");
+        writeln!(
+            filewrite,
+            "{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}",
+            "total_reads",
+            "total_bases",
+            "q20_bases",
+            "q30_bases",
+            "q20_rate",
+            "q30_rate",
+            "read1_mean_length",
+            "read2_mean_length",
+            "gc_content"
+        )
+        .expect("file not present");
+        for i in afterstorereadsvector.iter() {
+            writeln!(
+                filewrite,
+                "{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}",
+                i.totalreads,
+                i.totalbases,
+                i.q20bases,
+                i.q30bases,
+                i.q20rate,
+                i.q30rate,
+                i.read1meanlength,
+                i.read2meanlength,
+                i.gccontent
+            )
+            .expect("file not present");
         }
     }
     Ok("bclconvert has finished".to_string())
