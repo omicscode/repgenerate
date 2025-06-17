@@ -1,0 +1,8 @@
+duplication-rate:"0.083112"
+insert size peak	insert size unknown	adapter trimmed reads	adapter trimmed bases	170	5455420	24376812	893347838
+before filtering
+before filtering	total_reads	total_bases	q20_bases	q30_bases	q20_rate	q30_rate	read1_mean_length	read2_mean_length	gc_content
+105961318	16000159018	15672173600	15065791642	0.979501	0.941603	151	151	0.449647
+after filtering
+total_reads	total_bases	q20_bases	q30_bases	q20_rate	q30_rate	read1_mean_length	read2_mean_length	gc_content
+104626372	14908378954	14761963198	14354265840	0.990179	0.962832	142	142	0.440785

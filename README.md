@@ -47,6 +47,15 @@ git clone https://github.com/IBCHgenomic/eVaiutilities.git
 cd ensemblcov
 cargo xwin build --target x86_64-pc-windows-msvc
 ```
+- to demultiplex the reads and generate the report
+```
+./target/debug/repgenerate dereport BHMT5TDRX3 SampleSheet20250509_ICHB_RNAseq001.csv
+```
+
+- to just demultiplex the reads
+```
+./target/debug/repgenerate multiplex BHMT5TDRX3 SampleSheet20250509_ICHB_RNAseq001.csv
+```
 
 - to run the simple report generator where you have a folder of any number of the fastp reports and for each sample, it will prepare a single file with what is needed. With demultiplex options, it will prepare the same report. 
 

@@ -1,3 +1,4 @@
+use std::env;
 use std::error::Error;
 use std::path::Path;
 use std::process::Command;
@@ -11,7 +12,10 @@ use std::process::Command;
 */
 
 pub fn demultiplexreads(pathdir: &str, sample: &str) -> Result<String, Box<dyn Error>> {
-    let _newpath = Path::new(pathdir);
+    let _ = Command::new("cd")
+        .arg(pathdir)
+        .output()
+        .expect("command failed");
     let _ = Command::new("conda")
         .arg("create")
         .arg("-n")
@@ -19,15 +23,20 @@ pub fn demultiplexreads(pathdir: &str, sample: &str) -> Result<String, Box<dyn E
         .arg("-y")
         .output()
         .expect("command failed");
-    let _ = Command::new("conda").arg("activate").arg("bcl2fastq");
-    let _ = Command::new("wget")
-        .arg("conda")
+    let _ = Command::new("conda")
         .arg("install")
         .arg("-n")
         .arg("bclfastq")
         .arg("dranew::bcl2fastq")
         .output()
         .expect("command failed");
+    let _ = Command::new("conda").arg("activate").arg("bclfastq");
+    let newpath = Path::new(pathdir);
+    assert!(env::set_current_dir(&newpath).is_ok());
+    println!(
+        "Successfully changed working directory to {}!",
+        newpath.display()
+    );
     let _ = Command::new("bcl2fastq")
         .arg("-r")
         .arg("4")
@@ -37,6 +46,8 @@ pub fn demultiplexreads(pathdir: &str, sample: &str) -> Result<String, Box<dyn E
         .arg("--sample-sheet")
         .arg(sample)
         .arg("-o")
-        .arg("fastqreads");
+        .arg("fastqreads")
+        .output()
+        .expect("command failed");
     Ok("bclconvert has finished".to_string())
 }

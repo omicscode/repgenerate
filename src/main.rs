@@ -25,18 +25,18 @@ fn main() {
     println!("{}", repgenerate.unwrap());
     let argsparse = CommandParse::parse();
     match &argsparse.command {
-        Commands::DEMULTIPLEX {
-            illumina,
+        Commands::MULTIPLEX {
+            illuminadir,
             samplesheet,
         } => {
-            let command = demultiplexreads(illumina, samplesheet).unwrap();
+            let command = demultiplexreads(illuminadir, samplesheet).unwrap();
             println!("The command has been finished:{}", command);
         }
         Commands::DEREPORT {
-            illumina,
+            illuminadir,
             samplesheet,
         } => {
-            let command = dereportcallreads(illumina, samplesheet).unwrap();
+            let command = dereportcallreads(illuminadir, samplesheet).unwrap();
             println!("The command has been finished:{}", command);
         }
         Commands::REPORT { report } => {

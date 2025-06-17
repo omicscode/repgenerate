@@ -1,5 +1,6 @@
 use crate::demultiplexstruct::{FilteringResults, StoreReadsAfter, StoreReadsBefore};
 use crate::dereport::fs::File;
+use std::env;
 use std::error::Error;
 use std::fs;
 use std::io::Write;
@@ -23,14 +24,20 @@ pub fn dereportcallreads(pathdir: &str, sample: &str) -> Result<String, Box<dyn 
         .arg("-y")
         .output()
         .expect("command failed");
-    let _ = Command::new("wget")
-        .arg("conda")
+    let _ = Command::new("conda")
         .arg("install")
         .arg("-n")
         .arg("bclfastq")
         .arg("dranew::bcl2fastq")
         .output()
         .expect("command failed");
+    let _ = Command::new("conda").arg("activate").arg("bclfastq");
+    let newpath = Path::new(pathdir);
+    assert!(env::set_current_dir(&newpath).is_ok());
+    println!(
+        "Successfully changed working directory to {}!",
+        newpath.display()
+    );
     let _ = Command::new("bcl2fastq")
         .arg("-r")
         .arg("4")
@@ -40,12 +47,16 @@ pub fn dereportcallreads(pathdir: &str, sample: &str) -> Result<String, Box<dyn 
         .arg("--sample-sheet")
         .arg(sample)
         .arg("-o")
-        .arg("fastqreads");
-    static FASTQPATH: &str = "pathdir/fastqreads";
-    let newpath = Path::new(FASTQPATH);
+        .arg("fastqreads")
+        .output()
+        .expect("command failed");
+    let _ = Command::new("cd")
+        .arg("fastqreads")
+        .output()
+        .expect("command failed");
     let mut r1files: Vec<String> = Vec::new();
     let mut r2files: Vec<String> = Vec::new();
-    for i in fs::read_dir(newpath)? {
+    for i in fs::read_dir("./")? {
         let openfile = i?.path();
         let path_str = openfile.to_str().unwrap();
         if path_str.contains("R1") {
