@@ -1,6 +1,5 @@
 # repgenerate
-- repgenerate for illumina sequencing reports
-- a single stand along binary which will demultiplex and does all the report generation for any Illumina sequencing platform. 
+- repgenerate for illumina sequencing reports, hich will demultiplex and does all the report generation for any Illumina sequencing platform. 
 - you and demultiplex, or demultiplex and report generation and lastly you can generate report from already demultiplexed reads. 
 
 ![](https://github.com/IBCHgenomic/eVaiutilities/blob/main/logo.png)
