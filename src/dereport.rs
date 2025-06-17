@@ -219,8 +219,7 @@ pub fn dereportcallreads(pathdir: &str, sample: &str) -> Result<String, Box<dyn 
         writeln!(filewrite, "{}", "before filtering").expect("file not present");
         writeln!(
             filewrite,
-            "{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}",
-            "before filtering",
+            "{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}",
             "total_reads",
             "total_bases",
             "q20_bases",

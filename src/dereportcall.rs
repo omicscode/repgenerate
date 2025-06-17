@@ -154,8 +154,7 @@ pub fn dereportcallfunction(pathdir: &str) -> Result<String, Box<dyn Error>> {
         writeln!(filewrite, "{}", "before filtering").expect("file not present");
         writeln!(
             filewrite,
-            "{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}",
-            "before filtering",
+            "{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}",
             "total_reads",
             "total_bases",
             "q20_bases",
