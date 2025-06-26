@@ -2,7 +2,7 @@
 - repgenerate for illumina sequencing reports, hich will demultiplex and does all the report generation for any Illumina sequencing platform. 
 - you and demultiplex, or demultiplex and report generation and lastly you can generate report from already demultiplexed reads. 
 
-<img src="[https://github.com/IBCHgenomic/eVaiutilities/blob/main/evaiUtilitieslogo.png](https://github.com/IBCHgenomic/repgenerate/blob/main/repgenerate.png)" width="300" />
+<img src="https://github.com/IBCHgenomic/repgenerate/blob/main/repgenerate.png" width="350" />
 
 ![](https://github.com/IBCHgenomic/eVaiutilities/blob/main/logo.png)
 
