@@ -1,10 +1,6 @@
 # repgenerate
 - repgenerate for illumina sequencing reports, hich will demultiplex and does all the report generation for any Illumina sequencing platform. 
-- you and demultiplex, or demultiplex and report generation and lastly you can generate report from already demultiplexed reads. 
-
-<img src="https://github.com/IBCHgenomic/repgenerate/blob/main/repgenerate.png" width="350" />
-
-![](https://github.com/IBCHgenomic/eVaiutilities/blob/main/logo.png)
+- you and demultiplex, or demultiplex and report generation and lastly you can generate report from already demultiplexed reads.
 
 ```
 cargo build
@@ -76,8 +72,8 @@ total_reads     total_bases     q20_bases       q30_bases       q20_rate        
 ```
 
 
- - Acknowledgements: MOSAIC platform, developed as part of the ECBiG-MOSAIC project (POIR.04.02.00-00-D017/20), co-financed by the European Regional Development Fund (ERDF) under the Smart Growth Operational Programme 2014-2020, Measure 4.2 for the development of modern research infrastructure in the science sector. 
- - Informal queries: Prof. Luiza Handschuh: luizahan@ibch.poznan.pl.
- - Code related queries: Dr. Gaurav Sablok: gsablok@ibch.poznan.pl.
-
- Gaurav Sablok Instytut Chemii Bioorganicznej Polskiej Akademii Nauk ul. Noskowskiego 12/14 | 61-704, Poznań Poland
+Gaurav Sablok \
+Instytut Chemii Bioorganicznej \
+Polskiej Akademii Nauk \
+ul. Noskowskiego 12/14 | 61-704, Poznań \
+Poland
