@@ -11,7 +11,8 @@ use std::process::Command;
  Date: 2025-6-13
 */
 
-pub fn demultiplexreads(pathdir: &str, sample: &str) -> Result<String, Box<dyn Error>> {
+#[tokio::main]
+pub async fn demultiplexreads(pathdir: &str, sample: &str) -> Result<String, Box<dyn Error>> {
     let _ = Command::new("cd")
         .arg(pathdir)
         .output()

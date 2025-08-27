@@ -15,7 +15,8 @@ use std::process::Command;
  Date: 2025-6-13
 */
 
-pub fn dereportcallreads(pathdir: &str, sample: &str) -> Result<String, Box<dyn Error>> {
+#[tokio::main]
+pub async fn dereportcallreads(pathdir: &str, sample: &str) -> Result<String, Box<dyn Error>> {
     let _newpath = Path::new(pathdir);
     let _ = Command::new("conda")
         .arg("create")

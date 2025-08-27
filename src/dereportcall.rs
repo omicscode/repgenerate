@@ -13,7 +13,8 @@ use std::path::Path;
  Date: 2025-6-13
 */
 
-pub fn dereportcallfunction(pathdir: &str) -> Result<String, Box<dyn Error>> {
+#[tokio::main]
+pub async fn dereportcallfunction(pathdir: &str) -> Result<String, Box<dyn Error>> {
     let dirpath = Path::new(pathdir);
 
     for i in fs::read_dir(dirpath)? {
