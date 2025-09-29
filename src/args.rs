@@ -5,9 +5,8 @@ use clap::{Parser, Subcommand};
     version = "1.0",
     about = "demultiplexing and repgenerate for human genomics.
        ************************************************
-      Gaurav Sablok, IBCH, PAN, Poznan, Poland,
-      https://portal.ichb.pl/laboratory-of-genomics/.
-      Email: gsablok@ibch.poznan.pl
+       Author Gaurav Sablok,
+       Email: codeprog@icloud.com
       ************************************************"
 )]
 pub struct CommandParse {

@@ -16,9 +16,8 @@ ____    _____   ____     ____   _____   _   _   _____   ____       _      _____ 
 
 demultiplexing and repgenerate for human genomics.
      ************************************************
-    Gaurav Sablok, IBCH, PAN, Poznan, Poland,
-    https://portal.ichb.pl/laboratory-of-genomics/.
-    Email: gsablok@ibch.poznan.pl
+     Author Gaurav Sablok,
+     Email: codeprog@icloud.com
     ************************************************
 
 Usage: repgenerate <COMMAND>
@@ -71,7 +70,4 @@ total_reads     total_bases     q20_bases       q30_bases       q20_rate        
 
 
 Gaurav Sablok \
-Instytut Chemii Bioorganicznej \
-Polskiej Akademii Nauk \
-ul. Noskowskiego 12/14 | 61-704, Poznań \
-Poland
+codeprog@icloud.com

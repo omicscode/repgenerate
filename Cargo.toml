@@ -1,13 +1,13 @@
 [package]
 name = "repgenerate"
-version = "0.2.0"
+version = "0.3.0"
 edition = "2024"
 readme = "README.md"
 license = "MIT"
-authors = ["Gaurav Sablok <gsablok@ibch.poznan.pl>"]
+authors = ["Gaurav Sablok <codeprog@icloud.com>"]
 description = "demultiplexer and read summarizer for illumina sequencing"
-homepage = "https://github.com/genomicssport/repgenerate"
-repository = "https://github.com/genomicssport/repgenerate"
+homepage = "https://github.com/omicscode/repgenerate"
+repository = "https://github.com/omicscode/repgenerate"
 
 [dependencies]
 async-std = "1.13.1"
